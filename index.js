@@ -5,6 +5,11 @@ import * as dotenv from 'dotenv';
 import { genUserByEmail,userUpdatePassword,userUpdateToken } from "./helper.js";
 import Randomstring from "randomstring";
 import nodemailer from "nodemailer";
+import cors from "cors";
+
+ 
+
+ 
 
 const sensResetPasswordMail= async(username, email,randstring)=>{
   try {
@@ -47,6 +52,7 @@ dotenv.config();
 
 const PORT = process.env.PORT|| 9000;
 const app = express();
+app.use(cors());
 const MONGO_URL=process.env.MONGO_URL;
 
 
