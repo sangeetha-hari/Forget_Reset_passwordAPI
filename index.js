@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import { MongoClient } from "mongodb";
 import genhashedPassword from "./genhasedPassword.js";
@@ -5,12 +6,10 @@ import * as dotenv from 'dotenv';
 import { genUserByEmail,userUpdatePassword,userUpdateToken } from "./helper.js";
 import Randomstring from "randomstring";
 import nodemailer from "nodemailer";
-import cors from "cors";
+
 
  
-
- 
-
+//This is for sending email
 const sensResetPasswordMail= async(username, email,randstring)=>{
   try {
    const transpoter= nodemailer.createTransport({
@@ -29,7 +28,7 @@ const sensResetPasswordMail= async(username, email,randstring)=>{
       from:process.env.user,
       to:email,
       subject:"To reset your Password",
-      html:'<p> This message is to check the your account. If you want to reset the password<a href="http://localhost:9000/users/reset_password">click here</a>and the your secret key is:</p>' +randstring,
+      html:'<p> This message is to check the your account. If you want to reset the password<a href="">click here</a>and the your secret key is:</p>' +randstring,
     }
 
     transpoter.sendMail(mailOptions,function(error,info){
@@ -49,7 +48,6 @@ const sensResetPasswordMail= async(username, email,randstring)=>{
 
 
 dotenv.config();
-
 const PORT = process.env.PORT|| 9000;
 const app = express();
 app.use(cors());
